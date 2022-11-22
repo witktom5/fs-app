@@ -10,7 +10,7 @@ export class LocalAuthGuard extends AuthGuard('local') {
   canActivate(context: ExecutionContext) {
     // check if both password and login are provided
     const body = context.switchToHttp().getRequest().body
-    if (!body.email || !body.password) {
+    if (!body.username || !body.password) {
       throw new BadRequestException('Login or password not provided')
     }
     return super.canActivate(context)
