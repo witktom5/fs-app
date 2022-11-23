@@ -11,8 +11,8 @@ import { RegisterRequestDto } from './dto/register-request.dto'
 import { AuthService } from './auth.service'
 import { LocalAuthGuard } from './guards/local-auth.guard'
 import { JwtSign } from './auth.interface'
-import { User } from '../users/entity/user.entity'
 import { TypeormInterceptor } from '../interceptors/typeorm.interceptor'
+import { RequestUserInterface } from '../types/request-user.interface'
 
 @Controller('auth')
 export class AuthController {
@@ -29,6 +29,6 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   async loginUser(@Request() req: ExpressReq): Promise<JwtSign> {
-    return this.authService.loginUser(req.user as User)
+    return this.authService.loginUser(req.user as RequestUserInterface)
   }
 }

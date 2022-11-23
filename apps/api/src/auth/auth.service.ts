@@ -8,6 +8,7 @@ import { RegisterRequestDto } from './dto/register-request.dto'
 import * as bcrypt from 'bcrypt'
 import { instanceToPlain } from 'class-transformer'
 import { JwtSign } from './auth.interface'
+import { RequestUserInterface } from '../types/request-user.interface'
 
 @Injectable()
 export class AuthService {
@@ -44,7 +45,7 @@ export class AuthService {
     return null
   }
 
-  async loginUser(user: User): Promise<JwtSign> {
+  async loginUser(user: RequestUserInterface): Promise<JwtSign> {
     //  return token to validated user
     const payload = { username: user.username, sub: user.id }
     return {
