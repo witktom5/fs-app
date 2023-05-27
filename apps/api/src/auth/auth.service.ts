@@ -9,18 +9,20 @@ import * as bcrypt from 'bcrypt'
 import { instanceToPlain } from 'class-transformer'
 import { JwtSign } from './auth.interface'
 import { RequestUserInterface } from '../types/request-user.interface'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    private configService: ConfigService,
     private jwtService: JwtService,
   ) {}
 
   async registerUser(registeRequestDto: RegisterRequestDto): Promise<void> {
     const { username, email, password } = registeRequestDto
-    const salt = await bcrypt.genSalt(+process.env.SALT_ROUNDS)
+    const salt = await bcrypt.genSalt(+this.configService.get('SALT_ROUNDS'))
     //  hash password
     const hashedPassword = await bcrypt.hash(password, salt)
 

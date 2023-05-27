@@ -16,7 +16,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       username,
       password,
     } as LoginRequestDto)
-    if (!user) throw new UnauthorizedException('Incorrect login or password')
+    if (!user) throw new UnauthorizedException('Incorrect username or password')
     return user
   }
 }
