@@ -20,7 +20,7 @@ export class AuthService {
 
   async registerUser(registeRequestDto: RegisterRequestDto): Promise<void> {
     const { username, email, password } = registeRequestDto
-    const salt = await bcrypt.genSalt(+(process.env.SALT_ROUNDS as string))
+    const salt = await bcrypt.genSalt(+process.env.SALT_ROUNDS)
     //  hash password
     const hashedPassword = await bcrypt.hash(password, salt)
 
@@ -30,7 +30,6 @@ export class AuthService {
       password: hashedPassword,
       email,
     })
-    //  save user
     await this.usersRepository.save(user)
   }
 
@@ -38,7 +37,7 @@ export class AuthService {
     const { username, password } = loginRequestDto
     const user = await this.usersRepository.findOne({ where: { username } })
 
-    //  if user exists and password match return user with password excluded
+    //  return authenticated user with password excluded
     if (user && (await bcrypt.compare(password, user.password))) {
       return new User(instanceToPlain(user))
     }
@@ -46,7 +45,7 @@ export class AuthService {
   }
 
   async loginUser(user: RequestUserInterface): Promise<JwtSign> {
-    //  return token to validated user
+    //  return token to user
     const payload = { username: user.username, sub: user.id }
     return {
       access_token: this.jwtService.sign(payload),
