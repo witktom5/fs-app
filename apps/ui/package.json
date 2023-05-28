@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start:dev": "next dev",
+    "start:dev": "nyc --silent next dev -p 8080",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -24,5 +24,8 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "18.0.9",
     "babel-plugin-istanbul": "^6.1.1"
+  },
+  "nyc": {
+    "temp-dir": "../e2e/.nyc_output/ui"
   }
 }

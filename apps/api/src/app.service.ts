@@ -8,7 +8,7 @@ export class AppService {
     return 'Hello World!'
   }
   /* istanbul ignore next */
-  getCoverage(): unknown {
+  getCoverage() {
     if (this.configService.get('ENV') === 'production')
       throw new BadRequestException()
     return {

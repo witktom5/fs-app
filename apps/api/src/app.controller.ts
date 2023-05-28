@@ -9,10 +9,10 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello()
   }
-  /* istanbul ignore next */
 
-  @Get('/coverage')
-  getCoverage(): unknown {
+  @Get('coverage')
+  /* istanbul ignore next */
+  getCoverage() {
     return this.appService.getCoverage()
   }
 }
